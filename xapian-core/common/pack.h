@@ -145,7 +145,7 @@ pack_uint_preserving_sort(std::string & s, U value)
 {
     // Check U is an unsigned type.
     STATIC_ASSERT_UNSIGNED_TYPE(U);
-    STATIC_ASSERT(sizeof(U) <= SORTABLE_UINT_MAX_BYTES);
+    //STATIC_ASSERT(sizeof(U) <= SORTABLE_UINT_MAX_BYTES);
 
     char tmp[sizeof(U) + 1];
     char * p = tmp + sizeof(tmp);
