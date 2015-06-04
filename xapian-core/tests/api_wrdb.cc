@@ -1587,7 +1587,7 @@ DEFINE_TESTCASE(nomoredocids1, writable) {
     doc.set_data("prose");
     doc.add_term("word");
 
-    db.replace_document(Xapian::docid(-1), doc);
+    db.replace_document(0xffffffff, doc);
 
     TEST_EXCEPTION(Xapian::DatabaseError, db.add_document(doc));
 
