@@ -27,6 +27,9 @@
 
 #include <xapian/deprecated.h>
 
+#define USE_64BIT_DOCID 1
+#define USE_64BIT_TERMCOUNT 1
+
 namespace Xapian {
 
 /** A count of documents.
@@ -34,21 +37,34 @@ namespace Xapian {
  *  This is used to hold values such as the number of documents in a database
  *  and the frequency of a term in the database.
  */
+#ifdef USE_64BIT_DOCID
+typedef unsigned long long doccount;
+#else
 typedef unsigned doccount;
+#endif
 
 /** A signed difference between two counts of documents.
  *
  *  This is used by the Xapian classes which are STL containers of documents
  *  for "difference_type".
  */
-typedef int doccount_diff; /* FIXME: can overflow with more than 2^31 docs. */
+/* FIXME: can overflow. */
+#ifdef USE_64BIT_DOCID
+typedef long long doccount_diff;
+#else
+typedef int doccount_diff;
+#endif
 
 /** A unique identifier for a document.
  *
  *  Docid 0 is invalid, providing an "out of range" value which can be
  *  used to mean "not a valid document".
  */
+#ifdef USE_64BIT_DOCID
+typedef unsigned long long docid;
+#else
 typedef unsigned docid;
+#endif
 
 /** A normalised document length.
  *
@@ -68,14 +84,23 @@ XAPIAN_DEPRECATED(typedef int percent);
  *
  *  This is used to hold values such as the Within Document Frequency (wdf).
  */
+#ifdef USE_64BIT_TERMCOUNT
+typedef unsigned long long termcount;
+#else
 typedef unsigned termcount;
+#endif
 
 /** A signed difference between two counts of terms.
  *
  *  This is used by the Xapian classes which are STL containers of terms
  *  for "difference_type".
  */
-typedef int termcount_diff; /* FIXME: can overflow with more than 2^31 terms. */
+/* FIXME: can overflow. */
+#ifdef USE_64BIT_DOCID
+typedef long long termcount_diff;
+#else
+typedef int termcount_diff;
+#endif
 
 /** A term position within a document or query.
  */

@@ -30,11 +30,11 @@
 
 using namespace std;
 
-ostream &
-operator<<(ostream &os, const vector<unsigned int> &ints)
+template<class T> ostream &
+operator<<(ostream &os, const vector<T> &ints)
 {
     copy(ints.begin(), ints.end(),
-	 ostream_iterator<unsigned int>(os, ", "));
+            ostream_iterator<T>(os, ", "));
     return os;
 }
 
