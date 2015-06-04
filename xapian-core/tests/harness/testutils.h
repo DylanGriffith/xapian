@@ -28,8 +28,9 @@
 // ######################################################################
 // Useful display operators
 
+template<class T>
 std::ostream &operator<<(std::ostream &os,
-			 const std::vector<unsigned int> &ints);
+			 const std::vector<T> &ints);
 
 // ######################################################################
 // Useful comparison operators
