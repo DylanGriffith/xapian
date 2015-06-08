@@ -51,7 +51,7 @@ decode_length(const char ** p, const char *end, bool check_remaining)
 	unsigned char ch;
 	int shift = 0;
 	do {
-	    if (*p == end || shift > 28)
+	    if (*p == end || shift > 63)
 		throw Xapian::NetworkError("Bad encoded length: insufficient data");
 	    ch = *(*p)++;
 	    len |= size_t(ch & 0x7f) << shift;
