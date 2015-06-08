@@ -21,12 +21,6 @@
 #ifndef XAPIAN_INCLUDED_TYPES_H
 #define XAPIAN_INCLUDED_TYPES_H
 
-#if !defined XAPIAN_IN_XAPIAN_H && !defined XAPIAN_LIB_BUILD
-# error "Never use <xapian/types.h> directly; include <xapian.h> instead."
-#endif
-
-#include <xapian/deprecated.h>
-
 #define USE_64BIT_DOCID 1
 #define USE_64BIT_TERMCOUNT 1
 
