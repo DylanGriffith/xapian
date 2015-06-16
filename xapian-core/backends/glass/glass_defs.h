@@ -28,6 +28,7 @@
 
 /// Default B-tree block size.
 #define GLASS_DEFAULT_BLOCKSIZE 8192
+#define GLASS_MAX_DOCID 0xffffffff
 
 namespace Glass {
     enum table_type {

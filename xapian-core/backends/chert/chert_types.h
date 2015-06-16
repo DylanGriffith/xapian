@@ -55,5 +55,6 @@ typedef unsigned int chert_doclen_t;
  *  correspondingly.
  */
 #define CHERT_DEFAULT_BLOCK_SIZE 8192
+#define CHERT_MAX_DOCID 0xffffffff
 
 #endif /* OM_HGUARD_CHERT_TYPES_H */
