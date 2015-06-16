@@ -74,8 +74,8 @@ public class SmokeTest {
 	    // FIXME: was WritableDatabase db = Xapian.InMemory.open();
 	    WritableDatabase db = InMemory.open();
 	    db.addDocument(doc);
-	    if (db.getDocCount() != 1) {
-		System.err.println("Unexpected db.getDocCount()");
+	    if (!db.getDocCount().equals(java.math.BigInteger.valueOf(1))) {
+		System.err.println("Unexpected db.getDocCount(): " + db.getDocCount().toString());
 		System.exit(1);
 	    }
 
@@ -109,14 +109,14 @@ public class SmokeTest {
 	    }
 	    Enquire enq = new Enquire(db);
 	    enq.setQuery(new Query(Query.OP_OR, "there", "is"));
-	    MSet mset = enq.getMSet(0, 10);
-	    if (mset.size() != 1) {
-		System.err.println("Unexpected mset.size()");
+	    MSet mset = enq.getMSet(java.math.BigInteger.valueOf(0), java.math.BigInteger.valueOf(10));
+	    if (!mset.size().equals(java.math.BigInteger.valueOf(1))) {
+		System.err.println("Unexpected mset.size(): " + mset.size().toString());
 		System.exit(1);
 	    }
 	    MSetIterator m_itor = mset.begin();
 	    Document m_doc = null;
-	    long m_id;
+	    java.math.BigInteger m_id;
 	    while(m_itor.hasNext()) {
 		m_id = m_itor.next();
 		if(m_itor.hasNext()) {
@@ -125,13 +125,13 @@ public class SmokeTest {
 	    }
 
 	    // Only one doc exists in this mset
-	    if(m_doc != null && m_doc.getDocId() != 0) {
+	    if(m_doc != null && m_doc.getDocId() != java.math.BigInteger.valueOf(0)) {
 		System.err.println("Unexpected docid");
 		    System.exit(1);
 	    }
 
 	    String term_str = "";
-	    TermIterator itor = enq.getMatchingTermsBegin(mset.getElement(0));
+	    TermIterator itor = enq.getMatchingTermsBegin(mset.getElement(java.math.BigInteger.valueOf(0)));
 	    while (itor.hasNext()) {
 		term_str += itor.next();
 		if (itor.hasNext())
@@ -162,25 +162,25 @@ public class SmokeTest {
 	    }
 */
 	    RSet rset = new RSet();
-	    rset.addDocument(1);
-	    ESet eset = enq.getESet(10, rset, new MyExpandDecider());
+	    rset.addDocument(java.math.BigInteger.valueOf(1));
+	    ESet eset = enq.getESet(java.math.BigInteger.valueOf(10), rset, new MyExpandDecider());
 	    // FIXME: temporary simple check
-	    if (0 == eset.size()) {
+	    if (java.math.BigInteger.valueOf(0).equals(eset.size())) {
 		System.err.println("ESet.size() was 0");
 		System.exit(1);
 	    }
 
-	    int count = 0;
+	    java.math.BigInteger count = java.math.BigInteger.valueOf(0);
 	    for(ESetIterator eit = eset.begin(); eit.hasNext(); ) {
 	    // for (int i = 0; i < eset.size(); i++) {
 		if (eit.getTerm().charAt(0) == 'a') {
 		    System.err.println("MyExpandDecider wasn't used");
 		    System.exit(1);
 		}
-		++count;
+		count = count.add(java.math.BigInteger.valueOf(1));
 		eit.next();
 	    }
-	    if (count != eset.size()) {
+	    if (!count.equals(eset.size())) {
 		System.err.println("ESet.size() mismatched number of terms returned by ESetIterator");
 		System.err.println(count + " " + eset.size());
 		System.exit(1);
