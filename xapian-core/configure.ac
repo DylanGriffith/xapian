@@ -456,6 +456,23 @@ if test x$USE_MAINTAINER_MODE = xyes; then
   test -z "$PERL" && AC_MSG_ERROR([perl is required in maintainer mode])
 fi
 
+
+AC_ARG_ENABLE([64bit_docid],
+               [AS_HELP_STRING([--enable-64bit-docid], [enable 64bit docids[default=no]])],
+  [case ${enableval} in
+    yes|no) ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-64bit-docid]) ;;
+  esac],
+  [enable_64bit_docid=no])
+
+AC_ARG_ENABLE([64bit_termcount],
+               [AS_HELP_STRING([--enable-64bit-termcount], [enable 64bit termcounts[default=no]])],
+  [case ${enableval} in
+    yes|no) ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-64bit-termcount]) ;;
+  esac],
+  [enable_64bit_termcount=no])
+
 AC_ARG_ENABLE([documentation],
   [AS_HELP_STRING([--enable-documentation], [enable make rules to rebuild documentation [default=maintainer-mode]])],
   [case ${enableval} in
@@ -1258,6 +1275,15 @@ for backend in CHERT GLASS INMEMORY REMOTE ; do
     cxxcpp_flags="$cxxcpp_flags -DXAPIAN_HAS_${backend}_BACKEND"
   fi
 done
+
+if test yes = "$enable_64bit_docid" ; then
+  cxxcpp_flags="$cxxcpp_flags -DXAPIAN_HAS_64BIT_DOCID"
+fi
+
+if test yes = "$enable_64bit_termcount" ; then
+  cxxcpp_flags="$cxxcpp_flags -DXAPIAN_HAS_64BIT_TERMCOUNT"
+fi
+
 dnl For GCC (and compilers which pretend to be GCC) and MSVC, we create some
 dnl ABI checks in the generated version.h, and $CXXFLAGS may contain options
 dnl which affect the ABI (e.g. -fabi-version for GCC) so we want to use these

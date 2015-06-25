@@ -157,6 +157,20 @@ const char * dummy[] = {
 " */",
 "#define XAPIAN_REVISION ",REVISION,
 "",
+"/// XAPIAN_HAS_64BIT_DOCID Defined if the 64bit docid is enabled.",
+#ifdef XAPIAN_HAS_64BIT_DOCID
+"#define XAPIAN_HAS_64BIT_DOCID 1",
+#else
+"/* #undef XAPIAN_HAS_64BIT_DOCID */",
+#endif
+"",
+"/// XAPIAN_HAS_64BIT_TERMCOUNT Defined if the 64bit termcount is enabled.",
+#ifdef XAPIAN_HAS_64BIT_TERMCOUNT
+"#define XAPIAN_HAS_64BIT_TERMCOUNT 1",
+#else
+"/* #undef XAPIAN_HAS_64BIT_TERMCOUNT */",
+#endif
+"",
 "/// XAPIAN_HAS_CHERT_BACKEND Defined if the chert backend is enabled.",
 #ifdef XAPIAN_HAS_CHERT_BACKEND
 "#define XAPIAN_HAS_CHERT_BACKEND 1",
