@@ -66,6 +66,8 @@ void decode_length(const char ** p, const char *end, uint32_t & out);
 
 void decode_length(const char ** p, const char *end, uint64_t & out);
 
+void decode_length(const char ** p, const char *end, unsigned long long & out);
+
 /** Decode a length encoded by encode_length.
  *
  *  Also checks the result against the amount of data remaining after the
@@ -79,5 +81,7 @@ void decode_length(const char ** p, const char *end, uint64_t & out);
 void decode_length_and_check(const char ** p, const char *end, uint32_t & out);
 
 void decode_length_and_check(const char ** p, const char *end, uint64_t & out);
+
+void decode_length_and_check(const char ** p, const char *end, unsigned long long & out);
 
 #endif //XAPIAN_INCLUDED_LENGTH_H
